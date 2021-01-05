@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Hahn.ApplicatonProcess.December2020.Data.Models;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -26,12 +23,28 @@ namespace Hahn.ApplicatonProcess.December2020.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // cors
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllCorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.December2020.Web", Version = "v1" });
             });
+
+            // dbcontex
+            services.AddDbContext<ApplicatonProcessContext>(o => o.UseInMemoryDatabase("Hahn.ApplicatonProcess.Database"));
+
+            // bl
+            services.AddBusinessLogic();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +62,10 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowAllCorsPolicy");
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

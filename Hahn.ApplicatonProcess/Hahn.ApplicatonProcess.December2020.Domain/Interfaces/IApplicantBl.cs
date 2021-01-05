@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Hahn.ApplicatonProcess.December2020.Common.Models;
 
-namespace Hahn.ApplicatonProcess.December2020.Data.Interfaces
+namespace Hahn.ApplicatonProcess.December2020.Domain.Interfaces
 {
-    public interface IApplicantDal
+    public interface IApplicantBl : IBaseBl
     {
         Task<ApplicantModel> Get(int id);
         Task<int> Add(ApplicantModel applicantModel);
