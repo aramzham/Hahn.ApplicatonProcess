@@ -41,7 +41,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             {
                 var applicantModel = _mapper.Map<ApplicantModel>(requestModel);
                 var id = await _bl.ApplicantBl.Add(applicantModel);
-                return Ok($"api/applicants/{id}");
+                return CreatedAtRoute("", new {id});
             }
             catch (Exception e)
             {
@@ -51,12 +51,12 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task Put([FromBody] ApplicantRequestModel requestModel)
+        public async Task Put([FromBody] ApplicantRequestModel requestModel, int id)
         {
             try
             {
                 var applicantModel = _mapper.Map<ApplicantModel>(requestModel);
-                await _bl.ApplicantBl.Update(applicantModel);
+                await _bl.ApplicantBl.Update(applicantModel, id);
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper.Configuration.Conventions;
 using Hahn.ApplicatonProcess.December2020.Common.Models;
 using Hahn.ApplicatonProcess.December2020.Data.Interfaces;
 using Hahn.ApplicatonProcess.December2020.Data.Models;
@@ -26,9 +27,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Implementations
             return applicant.Id;
         }
 
-        public async Task Update(ApplicantModel applicantModel)
+        public async Task Update(ApplicantModel applicantModel, int id)
         {
-            var applicant = await _db.Applicants.FirstOrDefaultAsync(x => x.Id == applicantModel.Id);
+            var applicant = await _db.Applicants.FirstOrDefaultAsync(x => x.Id == id);
             if (applicant is null)
                 return;
 

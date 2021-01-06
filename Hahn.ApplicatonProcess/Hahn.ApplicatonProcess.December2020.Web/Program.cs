@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -18,9 +19,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog((hostingContext, loggerConfig) =>
+                    loggerConfig.ReadFrom.Configuration(hostingContext.Configuration))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureLogging(logging =>
+                    logging.AddFilter("Microsoft", LogLevel.Information)
+                           .AddFilter("System", LogLevel.Error));
     }
 }

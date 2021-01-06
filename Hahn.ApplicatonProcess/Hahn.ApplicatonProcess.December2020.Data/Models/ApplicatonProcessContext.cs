@@ -6,21 +6,19 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Models
     {
         public ApplicatonProcessContext()
         {
-            
+
         }
 
         public ApplicatonProcessContext(DbContextOptions<ApplicatonProcessContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Applicant> Applicants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
-            var applicant1 = new Applicant()
+            modelBuilder.Entity<Applicant>().HasData(new Applicant()
             {
                 Address = "Yerevan, Charbax",
                 Age = 31,
@@ -30,11 +28,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Models
                 Hired = true,
                 Id = 1,
                 Name = "Artak"
-            };
+            });
 
-            Applicants.Add(applicant1);
-
-            var applicant2 = new Applicant()
+            modelBuilder.Entity<Applicant>().HasData(new Applicant()
             {
                 Address = "Berlin",
                 Age = 28,
@@ -44,11 +40,12 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Models
                 Hired = false,
                 Id = 2,
                 Name = "Dimitrios"
-            };
+            });
+        }
 
-            Applicants.Add(applicant2);
-
-            SaveChanges();
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseInMemoryDatabase("Hahn.ApplicatonProcess.Database");
         }
     }
 }

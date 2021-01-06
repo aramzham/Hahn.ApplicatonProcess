@@ -1,13 +1,13 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Hahn.ApplicatonProcess.December2020.Data.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares;
-using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -34,20 +34,23 @@ namespace Hahn.ApplicatonProcess.December2020.Web
                 });
             });
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.December2020.Web", Version = "v1" });
             });
-
-            // dbcontex
-            services.AddDbContext<ApplicatonProcessContext>(o => o.UseInMemoryDatabase("Hahn.ApplicatonProcess.Database"));
 
             // bl
             services.AddBusinessLogic();
 
             // automapper
             services.AddAutoMapper();
+
+            // fluent validators
+            services.AddFluentValidators();
+
+            // logging
+            services.AddSingleton(Log.Logger);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

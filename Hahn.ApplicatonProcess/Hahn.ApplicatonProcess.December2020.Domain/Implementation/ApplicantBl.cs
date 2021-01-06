@@ -21,9 +21,9 @@ namespace Hahn.ApplicatonProcess.December2020.Domain.Implementation
             return await _dal.ApplicantDal.Add(applicantModel);
         }
 
-        public async Task Update(ApplicantModel applicantModel)
+        public async Task Update(ApplicantModel applicantModel, int id)
         {
-            await _dal.ApplicantDal.Update(applicantModel);
+            await _dal.ApplicantDal.Update(applicantModel, id);
             await _dal.SaveChangesAsync();
         }
 
