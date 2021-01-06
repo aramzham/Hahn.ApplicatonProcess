@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoMapper;
+using Hahn.ApplicatonProcess.December2020.Common.Models;
 using Hahn.ApplicatonProcess.December2020.Domain;
 using Hahn.ApplicatonProcess.December2020.Web.Models.RequestModels;
 using Hahn.ApplicatonProcess.December2020.Web.Models.ResponseModels;
@@ -10,8 +12,11 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 {
     public class ApplicantsController : BaseController
     {
-        public ApplicantsController(ApplicatonProcessBl bl, ILogger logger) : base(bl, logger)
+        private readonly IMapper _mapper;
+
+        public ApplicantsController(ApplicatonProcessBl bl, ILogger logger, IMapper mapper) : base(bl, logger)
         {
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
@@ -36,7 +41,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             {
                 var applicantModel = _mapper.Map<ApplicantModel>(requestModel);
                 var id = await _bl.ApplicantBl.Add(applicantModel);
-                return Ok($"get/{id}");
+                return Ok($"api/applicants/{id}");
             }
             catch (Exception e)
             {
