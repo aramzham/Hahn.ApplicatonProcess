@@ -3,10 +3,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hahn.ApplicatonProcess.December2020.Common.Models;
 using Hahn.ApplicatonProcess.December2020.Domain;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Examples;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Examples.ErrorExampleModels;
+using Hahn.ApplicatonProcess.December2020.Web.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Models.RequestModels;
 using Hahn.ApplicatonProcess.December2020.Web.Models.ResponseModels;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 {
@@ -20,6 +25,9 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerResponse(200, "Get applicant by id", typeof(ApplicantAddRequestModel))]
+        [SwaggerResponse(404, "Not found by specified id", typeof(NotFoundErrorModel))]
+        [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Get(int id)
         {
             try
@@ -38,13 +46,17 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpPost("Add")]
+        [SwaggerRequestExample(typeof(ApplicantAddRequestModel), typeof(ApplicantAddRequestModelExample))]
+        [SwaggerResponse(201, "Created successfully")]
+        [SwaggerResponse(400, "Validation error", typeof(ValidationErrorModel))]
+        [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Post([FromBody] ApplicantAddRequestModel requestModel)
         {
             try
             {
                 var applicantModel = _mapper.Map<ApplicantModel>(requestModel);
                 var id = await _bl.ApplicantBl.Add(applicantModel);
-                return CreatedAtRoute("", new {id});
+                return CreatedAtRoute("", new { id });
             }
             catch (Exception e)
             {
@@ -54,6 +66,11 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpPut("{id}")]
+        [SwaggerRequestExample(typeof(ApplicantUpdateRequestModel), typeof(ApplicantUpdateRequestModelExample))]
+        [SwaggerResponse(204, "Updated successfully")]
+        [SwaggerResponse(400, "Validation error", typeof(ValidationErrorModel))]
+        [SwaggerResponse(404, "Not found by specified id", typeof(NotFoundErrorModel))]
+        [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Put([FromBody] ApplicantUpdateRequestModel requestModel, int id)
         {
             try
@@ -73,6 +90,9 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerResponse(204, "Deleted successfully")]
+        [SwaggerResponse(404, "Not found by specified id", typeof(NotFoundErrorModel))]
+        [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Delete(int id)
         {
             try

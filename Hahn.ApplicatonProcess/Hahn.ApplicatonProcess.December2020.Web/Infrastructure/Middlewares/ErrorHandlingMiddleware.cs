@@ -2,6 +2,7 @@
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Hahn.ApplicatonProcess.December2020.Web.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares
@@ -29,7 +30,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             var code = HttpStatusCode.InternalServerError;
-            var result = JsonSerializer.Serialize(new { error = ex.Message });
+            var result = JsonSerializer.Serialize(new ErrorModel() { Error = ex.Message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);

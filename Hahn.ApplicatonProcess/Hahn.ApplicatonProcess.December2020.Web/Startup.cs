@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Reflection;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares;
 using Serilog;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -38,6 +41,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.December2020.Web", Version = "v1" });
+                c.ExampleFilters();
             });
 
             // bl
@@ -51,6 +55,10 @@ namespace Hahn.ApplicatonProcess.December2020.Web
 
             // logging
             services.AddSingleton(Log.Logger);
+
+            // filters
+            services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
+            Debug.WriteLine(Assembly.GetEntryAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
