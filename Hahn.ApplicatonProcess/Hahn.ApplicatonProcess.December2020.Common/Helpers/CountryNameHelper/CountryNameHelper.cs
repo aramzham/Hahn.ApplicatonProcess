@@ -15,7 +15,7 @@ namespace Hahn.ApplicatonProcess.December2020.Common.Helpers.CountryNameHelper
                 JsonSerializer.Deserialize<CountryNameRootobject[]>(result);
                 return true;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }

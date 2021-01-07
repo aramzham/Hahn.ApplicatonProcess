@@ -8,7 +8,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Automapper.Prof
     {
         public ApplicantRequestToBlModelProfile()
         {
-            CreateMap<ApplicantRequestModel, ApplicantModel>();
+            CreateMap<ApplicantAddRequestModel, ApplicantModel>();
+            CreateMap<ApplicantUpdateRequestModel, ApplicantModel>();
         }
     }
 }

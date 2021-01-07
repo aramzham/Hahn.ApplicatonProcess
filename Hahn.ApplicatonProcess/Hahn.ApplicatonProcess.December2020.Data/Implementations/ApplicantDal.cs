@@ -27,33 +27,36 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Implementations
             return applicant.Id;
         }
 
-        public async Task Update(ApplicantModel applicantModel, int id)
+        public async Task<bool> Update(ApplicantModel applicantModel, int id)
         {
             var applicant = await _db.Applicants.FirstOrDefaultAsync(x => x.Id == id);
             if (applicant is null)
-                return;
+                return false;
 
             if (!string.IsNullOrEmpty(applicantModel.FamilyName))
                 applicant.FamilyName = applicantModel.FamilyName;
             if (!string.IsNullOrEmpty(applicantModel.CountryOfOrigin))
                 applicant.CountryOfOrigin = applicantModel.CountryOfOrigin;
-            if (!string.IsNullOrEmpty(applicantModel.EMailAdress))
-                applicant.EMailAdress = applicantModel.EMailAdress;
+            if (!string.IsNullOrEmpty(applicantModel.EMailAddress))
+                applicant.EMailAddress = applicantModel.EMailAddress;
             if (!string.IsNullOrEmpty(applicantModel.Address))
                 applicant.Address = applicantModel.Address;
-            if (applicantModel.Age != default)
-                applicant.Age = applicantModel.Age;
+            if (applicantModel.Age.HasValue)
+                applicant.Age = applicantModel.Age.Value;
             if (applicantModel.Hired.HasValue)
                 applicant.Hired = applicantModel.Hired.Value;
+
+            return true;
         }
 
-        public async Task Remove(int id)
+        public async Task<bool> Remove(int id)
         {
             var applicant = await _db.Applicants.FirstOrDefaultAsync(x => x.Id == id);
             if(applicant is null)
-                return;
+                return false;
 
             _db.Applicants.Remove(applicant);
+            return true;
         }
     }
 }

@@ -21,16 +21,18 @@ namespace Hahn.ApplicatonProcess.December2020.Domain.Implementation
             return await _dal.ApplicantDal.Add(applicantModel);
         }
 
-        public async Task Update(ApplicantModel applicantModel, int id)
+        public async Task<bool> Update(ApplicantModel applicantModel, int id)
         {
-            await _dal.ApplicantDal.Update(applicantModel, id);
+            var isUpdated = await _dal.ApplicantDal.Update(applicantModel, id);
             await _dal.SaveChangesAsync();
+            return isUpdated;
         }
 
-        public async Task Remove(int id)
+        public async Task<bool> Remove(int id)
         {
-            await _dal.ApplicantDal.Remove(id);
+            var isDeleted = await _dal.ApplicantDal.Remove(id);
             await _dal.SaveChangesAsync();
+            return isDeleted;
         }
     }
 }

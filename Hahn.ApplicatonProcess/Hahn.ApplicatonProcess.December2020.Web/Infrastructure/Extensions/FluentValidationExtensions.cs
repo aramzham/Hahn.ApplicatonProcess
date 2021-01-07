@@ -9,7 +9,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions
     {
         public static IServiceCollection AddFluentValidators(this IServiceCollection services)
         {
-            services.AddTransient<IValidator<ApplicantRequestModel>, ApplicantRequestModelValidator>();
+            services.AddTransient<IValidator<ApplicantAddRequestModel>, ApplicantAddRequestModelValidator>();
+            services.AddTransient<IValidator<ApplicantUpdateRequestModel>, ApplicantUpdateRequestModelValidator>();
             return services;
         }
     }

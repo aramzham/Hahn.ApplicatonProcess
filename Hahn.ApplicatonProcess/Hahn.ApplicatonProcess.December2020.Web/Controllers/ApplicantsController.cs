@@ -20,12 +20,15 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ApplicantResponseModel> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
                 var applicantModel = await _bl.ApplicantBl.Get(id);
-                return _mapper.Map<ApplicantResponseModel>(applicantModel);
+                if (applicantModel is null)
+                    return NotFound();
+
+                return Ok(_mapper.Map<ApplicantResponseModel>(applicantModel));
             }
             catch (Exception e)
             {
@@ -35,7 +38,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Post([FromBody] ApplicantRequestModel requestModel)
+        public async Task<IActionResult> Post([FromBody] ApplicantAddRequestModel requestModel)
         {
             try
             {
@@ -51,12 +54,16 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task Put([FromBody] ApplicantRequestModel requestModel, int id)
+        public async Task<IActionResult> Put([FromBody] ApplicantUpdateRequestModel requestModel, int id)
         {
             try
             {
                 var applicantModel = _mapper.Map<ApplicantModel>(requestModel);
-                await _bl.ApplicantBl.Update(applicantModel, id);
+                var isUpdated = await _bl.ApplicantBl.Update(applicantModel, id);
+                if (!isUpdated)
+                    return NotFound();
+
+                return NoContent();
             }
             catch (Exception e)
             {
@@ -66,11 +73,15 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                await _bl.ApplicantBl.Remove(id);
+                var isDeleted = await _bl.ApplicantBl.Remove(id);
+                if (!isDeleted)
+                    return NotFound();
+
+                return NoContent();
             }
             catch (Exception e)
             {
