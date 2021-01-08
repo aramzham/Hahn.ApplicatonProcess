@@ -1,0 +1,111 @@
+{
+  "common": {
+    "countryNameHelper": {
+      "url": "https://restcountries.eu/rest/v2/name/{0}?fullText=true"
+    }
+  },
+  "web": {
+    "corsPolicyName": "AllowAllCorsPolicy",
+    "contentType": "application/json",
+    "swagger": {
+      "name": "Hahn.ApplicatonProcess.December2020.Web v1",
+      "jsonUrl": "/swagger/v1/swagger.json",
+      "openApiInfoTitle": "Hahn.ApplicatonProcess.December2020.Web",
+      "version": "v1"
+    },
+    "loggingFilters": {
+      "categoryMicrosoft": "Microsoft",
+      "categorySystem": "System"
+    },
+    "validatorMessages": {
+      "emailAddress": "Please enter a valid email address.",
+      "countryOfOrigin": "Please enter a valid country name.",
+      "name": "The length of 'Name' must be 5 characters or more.",
+      "familyName": "The length of 'FamilyName' must be 5 characters or more.",
+      "address": "The length of 'Address' must be 10 characters or more.",
+      "age": "'Age' must be between 20 and 60 (inclusive)"
+    },
+    "examples": {
+      "notFoundResponse": {
+        "title": "Not Found",
+        "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+        "status": 404,
+        "traceId": "00-52453e6fd5d39e4295ed6e2478266f06-8b980843f8c8a142-00"
+      },
+      "notValidResponse": {
+        "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+        "status": 400,
+        "title": "One or more validation errors occurred.",
+        "traceId": "00-ea380e85adc3d848b7f012db2a03a194-c770a14abdcdc149-00"
+      },
+      "generalExceptionExample": "Internal server error",
+      "update": [
+        {
+          "exampleName": "name&age",
+          "name": "Javi",
+          "age": 20
+        },
+        {
+          "exampleName": "country&email",
+          "countryOfOrigin": "Colombia",
+          "emailAddress": "colombia_tex@some_domain.cl"
+        },
+        {
+          "exampleName": "invalid_update",
+          "age": 61,
+          "address": "here"
+        }
+      ],
+      "add": [
+        {
+          "exampleName": "Petros",
+          "name": "Petros",
+          "familyName": "Ohanyan",
+          "countryOfOrigin": "Armenia",
+          "age": 28,
+          "address": "Armenia, Yerevan",
+          "emailAddress": "some_email@tuy.am"
+        },
+        {
+          "exampleName": "Andrew",
+          "name": "Andrew",
+          "familyName": "Robertson",
+          "countryOfOrigin": "United Kingdom of Great Britain and Northern Ireland",
+          "age": 30,
+          "address": "Scotland, Glasgow",
+          "emailAddress": "qanaqerci_tuy@list.am",
+          "hired": true
+        },
+        {
+          "exampleName": "NotValidExample",
+          "name": "Short",
+          "familyName": "Surname",
+          "countryOfOrigin": "Neverland",
+          "age": 19,
+          "address": "short name",
+          "emailAddress": "invalid_email.am",
+          "hired": true
+        }
+      ],
+      "swaggerResponseDescriptions": {
+        "getById": "Get applicant by id",
+        "notFound": "Not found by specified id",
+        "created": "Created successfully",
+        "validationError": "Validation error",
+        "updated": "Updated successfully",
+        "deleted": "Deleted successfully"
+      }
+    },
+    "routePrefix": "api/[controller]",
+    "routes": {
+      "id": "{id}",
+      "Add": "Add"
+    },
+    "verbs": {
+      "get": "Get",
+      "post": "Post",
+      "put": "Put",
+      "delete": "Delete" 
+    }
+  } 
+}

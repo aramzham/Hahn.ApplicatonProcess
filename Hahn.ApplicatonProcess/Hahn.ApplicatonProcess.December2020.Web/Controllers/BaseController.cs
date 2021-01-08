@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hahn.ApplicatonProcess.December2020.Domain;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure;
 using Serilog;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 {
-    [ApiController, Route("api/[controller]"), Produces("application/json")]
+    [ApiController, Route(Constants.ControllerRoute), Produces(Constants.ContentType)]
     public class BaseController : ControllerBase
     {
         protected ApplicatonProcessBl _bl;

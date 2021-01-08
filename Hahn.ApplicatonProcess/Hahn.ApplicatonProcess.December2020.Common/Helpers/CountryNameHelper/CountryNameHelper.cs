@@ -11,7 +11,7 @@ namespace Hahn.ApplicatonProcess.December2020.Common.Helpers.CountryNameHelper
         {
             try
             {
-                var result = SendGetRequest(string.Format("https://restcountries.eu/rest/v2/name/{0}?fullText=true", name)).GetAwaiter().GetResult();
+                var result = SendGetRequest(string.Format(CommonConstants.CountryNameHelperUrl, name)).GetAwaiter().GetResult();
                 JsonSerializer.Deserialize<CountryNameRootobject[]>(result);
                 return true;
             }

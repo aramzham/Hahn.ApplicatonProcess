@@ -9,7 +9,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Examples
         {
             return new ErrorModel()
             {
-                Error = "Internal server error"
+                Error = ExampleConstants.InternalServerErrorMessage
             };
         }
     }

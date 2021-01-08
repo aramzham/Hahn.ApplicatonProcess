@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hahn.ApplicatonProcess.December2020.Common.Models;
 using Hahn.ApplicatonProcess.December2020.Domain;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Examples;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Examples.ErrorExampleModels;
 using Hahn.ApplicatonProcess.December2020.Web.Models;
@@ -25,8 +26,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        [SwaggerResponse(200, "Get applicant by id", typeof(ApplicantAddRequestModel))]
-        [SwaggerResponse(404, "Not found by specified id", typeof(NotFoundErrorModel))]
+        [SwaggerResponse(200, SwaggerResponseDescriptions.GetById, typeof(ApplicantAddRequestModel))]
+        [SwaggerResponse(404, SwaggerResponseDescriptions.NotFound, typeof(NotFoundErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Get(int id)
         {
@@ -40,15 +41,15 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e, "Get");
+                _logger.Error(e, Verbs.Get);
                 throw;
             }
         }
 
         [HttpPost("Add")]
         [SwaggerRequestExample(typeof(ApplicantAddRequestModel), typeof(ApplicantAddRequestModelExample))]
-        [SwaggerResponse(201, "Created successfully")]
-        [SwaggerResponse(400, "Validation error", typeof(ValidationErrorModel))]
+        [SwaggerResponse(201, SwaggerResponseDescriptions.Created)]
+        [SwaggerResponse(400, SwaggerResponseDescriptions.ValidationError, typeof(ValidationErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Post([FromBody] ApplicantAddRequestModel requestModel)
         {
@@ -56,20 +57,20 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             {
                 var applicantModel = _mapper.Map<ApplicantModel>(requestModel);
                 var id = await _bl.ApplicantBl.Add(applicantModel);
-                return CreatedAtRoute("", new { id });
+                return CreatedAtRoute(string.Empty, new { id });
             }
             catch (Exception e)
             {
-                _logger.Error(e, "Post");
+                _logger.Error(e, Verbs.Post);
                 throw;
             }
         }
 
         [HttpPut("{id}")]
         [SwaggerRequestExample(typeof(ApplicantUpdateRequestModel), typeof(ApplicantUpdateRequestModelExample))]
-        [SwaggerResponse(204, "Updated successfully")]
-        [SwaggerResponse(400, "Validation error", typeof(ValidationErrorModel))]
-        [SwaggerResponse(404, "Not found by specified id", typeof(NotFoundErrorModel))]
+        [SwaggerResponse(204, SwaggerResponseDescriptions.Updated)]
+        [SwaggerResponse(400, SwaggerResponseDescriptions.ValidationError, typeof(ValidationErrorModel))]
+        [SwaggerResponse(404, SwaggerResponseDescriptions.NotFound, typeof(NotFoundErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Put([FromBody] ApplicantUpdateRequestModel requestModel, int id)
         {
@@ -84,14 +85,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e, "Put");
+                _logger.Error(e, Verbs.Put);
                 throw;
             }
         }
 
         [HttpDelete("{id}")]
-        [SwaggerResponse(204, "Deleted successfully")]
-        [SwaggerResponse(404, "Not found by specified id", typeof(NotFoundErrorModel))]
+        [SwaggerResponse(204, SwaggerResponseDescriptions.Deleted)]
+        [SwaggerResponse(404, SwaggerResponseDescriptions.NotFound, typeof(NotFoundErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Delete(int id)
         {
@@ -105,7 +106,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e, "Delete");
+                _logger.Error(e, Verbs.Delete);
                 throw;
             }
         }

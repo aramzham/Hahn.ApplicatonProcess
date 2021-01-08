@@ -1,0 +1,58 @@
+﻿[
+  {
+    "Key": "Please enter a valid email address.",
+    "LocalizedValue": {
+      "fr-FR": "S'il vous plait, veuillez entrer un email adresse valide",
+      "es-ES": "Por favor, entra un correo válido"
+    }
+  },
+  {
+    "Key": "Please enter a valid country name.",
+    "LocalizedValue": {
+      "fr-FR": "S'il vous plait, veuillez entrer un nom de pays valide",
+      "es-ES": "Por favor, entra un nombre de pais válido"
+    }
+  },
+  {
+    "Key": "The length of 'Name' must be 5 characters or more.",
+    "LocalizedValue": {
+      "fr-FR": "La longuer de 'Name' doit etre 5 characteres ou plus",
+      "es-ES": "El largo de 'Name' debe ser 5 símbolos o mas"
+    }
+  },
+  {
+    "Key": "The length of 'FamilyName' must be 5 characters or more.",
+    "LocalizedValue": {
+      "fr-FR": "La longuer de 'FamilyName' doit etre 5 characteres ou plus",
+      "es-ES": "El largo de 'Name' debe ser 5 símbolos o mas"
+    }
+  },
+  {
+    "Key": "The length of 'Address' must be 10 characters or more.",
+    "LocalizedValue": {
+      "fr-FR": "La longuer de 'Address' doit etre 10 characteres ou plus",
+      "es-ES": "El largo de 'Address' debe ser 10 símbolos o mas"
+    }
+  },
+  {
+    "Key": "'Age' must be between 20 and 60 (inclusive)",
+    "LocalizedValue": {
+      "fr-FR": "'Age' doit etre entre 20 et 60 (inclusif)",
+      "es-ES": "'Age' debe ser entre 20 y 60 (incluso)"
+    }
+  },
+  {
+    "Key": "Not Found",
+    "LocalizedValue": {
+      "fr-FR": "Pas trouvé",
+      "es-ES": "No encontrado"
+    }
+  },
+  {
+    "Key": "One or more validation errors occurred.",
+    "LocalizedValue": {
+      "fr-FR": "Un ou plus errores de validation se sont proudits",
+      "es-ES": "Uno o mas errores de validacion se ocurrieron"
+    }
+  }
+]

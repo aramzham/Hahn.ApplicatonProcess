@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure;
 using Serilog;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
@@ -26,7 +27,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
                     webBuilder.UseStartup<Startup>();
                 })
                 .ConfigureLogging(logging =>
-                    logging.AddFilter("Microsoft", LogLevel.Information)
-                           .AddFilter("System", LogLevel.Error));
+                    logging.AddFilter(Constants.Microsoft, LogLevel.Information)
+                           .AddFilter(Constants.System, LogLevel.Error));
     }
 }

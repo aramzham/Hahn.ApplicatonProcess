@@ -1,6 +1,8 @@
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using FluentValidation.AspNetCore;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +11,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Resources;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -29,7 +34,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             // cors
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllCorsPolicy", builder =>
+                options.AddPolicy(Constants.CorsPolicyName, builder =>
                 {
                     builder.AllowAnyOrigin()
                         .AllowAnyHeader()
@@ -37,10 +42,12 @@ namespace Hahn.ApplicatonProcess.December2020.Web
                 });
             });
 
-            services.AddControllers().AddFluentValidation();
+            services.AddControllers()
+                .AddFluentValidation()
+                .AddDataAnnotationsLocalization();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.December2020.Web", Version = "v1" });
+                c.SwaggerDoc(SwaggerConstants.Version, new OpenApiInfo { Title = SwaggerConstants.OpenApiInfoTitle, Version = SwaggerConstants.Version });
                 c.ExampleFilters();
             });
 
@@ -58,7 +65,22 @@ namespace Hahn.ApplicatonProcess.December2020.Web
 
             // filters
             services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
-            Debug.WriteLine(Assembly.GetEntryAssembly());
+
+            // localization
+            services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+            services.AddSingleton<IStringLocalizer, JsonStringLocalizer>();
+            services.AddLocalization(options => options.ResourcesPath = Constants.ResourcesPath);
+            services.Configure<RequestLocalizationOptions>(options => {
+                var supportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo(Cultures.en_US),
+                    new CultureInfo(Cultures.fr_FR),
+                    new CultureInfo(Cultures.es_ES)
+                };
+                options.DefaultRequestCulture = new RequestCulture(Cultures.en_US);
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,7 +90,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.December2020.Web v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint(SwaggerConstants.JsonUrl, SwaggerConstants.Name));
             }
 
             app.UseHttpsRedirection();
@@ -77,7 +99,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
 
             app.UseAuthorization();
 
-            app.UseCors("AllowAllCorsPolicy");
+            app.UseCors(Constants.CorsPolicyName);
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
 

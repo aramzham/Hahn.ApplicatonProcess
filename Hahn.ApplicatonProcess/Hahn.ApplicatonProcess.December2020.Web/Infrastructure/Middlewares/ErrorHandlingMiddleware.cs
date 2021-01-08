@@ -31,7 +31,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares
         {
             var code = HttpStatusCode.InternalServerError;
             var result = JsonSerializer.Serialize(new ErrorModel() { Error = ex.Message });
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = Constants.ContentType;
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);
         }
