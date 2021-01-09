@@ -77,10 +77,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web
                     new CultureInfo(Cultures.fr_FR),
                     new CultureInfo(Cultures.es_ES)
                 };
-                options.DefaultRequestCulture = new RequestCulture(Cultures.en_US);
+                options.DefaultRequestCulture = new RequestCulture(Cultures.es_ES);
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
+
+            // uncomment this lines to work with es-ES spanish culture
+            // CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo(Cultures.es_ES);
+            // CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo(Cultures.es_ES);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

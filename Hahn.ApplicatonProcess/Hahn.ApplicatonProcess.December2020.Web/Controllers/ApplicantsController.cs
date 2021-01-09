@@ -26,8 +26,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        [SwaggerResponse(200, SwaggerResponseDescriptions.GetById, typeof(ApplicantAddRequestModel))]
-        [SwaggerResponse(404, SwaggerResponseDescriptions.NotFound, typeof(NotFoundErrorModel))]
+        [SwaggerResponse(200, type: typeof(ApplicantAddRequestModel))]
+        [SwaggerResponse(404, type: typeof(NotFoundErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Get(int id)
         {
@@ -48,8 +48,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 
         [HttpPost("Add")]
         [SwaggerRequestExample(typeof(ApplicantAddRequestModel), typeof(ApplicantAddRequestModelExample))]
-        [SwaggerResponse(201, SwaggerResponseDescriptions.Created)]
-        [SwaggerResponse(400, SwaggerResponseDescriptions.ValidationError, typeof(ValidationErrorModel))]
+        [SwaggerResponse(201)]
+        [SwaggerResponse(400, type: typeof(ValidationErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Post([FromBody] ApplicantAddRequestModel requestModel)
         {
@@ -68,9 +68,9 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 
         [HttpPut("{id}")]
         [SwaggerRequestExample(typeof(ApplicantUpdateRequestModel), typeof(ApplicantUpdateRequestModelExample))]
-        [SwaggerResponse(204, SwaggerResponseDescriptions.Updated)]
-        [SwaggerResponse(400, SwaggerResponseDescriptions.ValidationError, typeof(ValidationErrorModel))]
-        [SwaggerResponse(404, SwaggerResponseDescriptions.NotFound, typeof(NotFoundErrorModel))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400, type: typeof(ValidationErrorModel))]
+        [SwaggerResponse(404, type: typeof(NotFoundErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Put([FromBody] ApplicantUpdateRequestModel requestModel, int id)
         {
@@ -91,8 +91,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        [SwaggerResponse(204, SwaggerResponseDescriptions.Deleted)]
-        [SwaggerResponse(404, SwaggerResponseDescriptions.NotFound, typeof(NotFoundErrorModel))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(404, type: typeof(NotFoundErrorModel))]
         [SwaggerResponse(500, type: typeof(ErrorModel))]
         public async Task<IActionResult> Delete(int id)
         {

@@ -38,14 +38,12 @@
         public const string InternalServerErrorMessage = "Internal server error";
     }
 
-    public static class SwaggerResponseDescriptions
+    public static class SwaggerExampleNames
     {
-        public const string GetById = "Get applicant by id";
-        public const string NotFound = "Not found by specified id";
-        public const string Created = "Created successfully";
-        public const string ValidationError = "Validation error";
-        public const string Updated = "Updated successfully";
-        public const string Deleted = "Deleted successfully";
+        public const string NameAndAge = "name&age";
+        public const string CountryAndEmail = "country&email";
+        public const string InvalidUpdate = "invalid_update";
+        public const string NotValidExample = "NotValidExample";
     }
 
     public static class Verbs

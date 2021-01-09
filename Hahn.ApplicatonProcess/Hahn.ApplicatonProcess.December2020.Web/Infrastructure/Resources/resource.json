@@ -51,8 +51,43 @@
   {
     "Key": "One or more validation errors occurred.",
     "LocalizedValue": {
-      "fr-FR": "Un ou plus errores de validation se sont proudits",
+      "fr-FR": "Un ou plus erreures de validation se sont proudits",
       "es-ES": "Uno o mas errores de validacion se ocurrieron"
+    }
+  },
+  {
+    "Key": "Internal server error",
+    "LocalizedValue": {
+      "fr-FR": "Erreur internal de serveur",
+      "es-ES": "Error internal de server"
+    }
+  },
+  {
+    "Key": "name&age",
+    "LocalizedValue": {
+      "fr-FR": "nom&age",
+      "es-ES": "nombre&edad"
+    }
+  },
+  {
+    "Key": "country&email",
+    "LocalizedValue": {
+      "fr-FR": "nom&age",
+      "es-ES": "nombre&edad"
+    }
+  },
+  {
+    "Key": "invalid_update",
+    "LocalizedValue": {
+      "fr-FR": null,
+      "es-ES": null
+    }
+  },
+  {
+    "Key": "NotValidExample",
+    "LocalizedValue": {
+      "fr-FR": "ExamplePasValide",
+      "es-ES": "EjemploNoValido"
     }
   }
 ]

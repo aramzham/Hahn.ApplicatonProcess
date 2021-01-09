@@ -43,12 +43,15 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Resources
 
         private string GetString(string name)
         {
-            if (CultureInfo.CurrentCulture.Name == Cultures.en_US)
-            {
-                return _resourceItems.ContainsKey(name) ? name : null;
-            }
+            if (!_resourceItems.ContainsKey(name))
+                return null;
 
-            var value = _resourceItems.Values.Where(x => x.LocalizedValue.ContainsKey(CultureInfo.CurrentCulture.Name)).SelectMany(x => x.LocalizedValue.Values).FirstOrDefault(x => x == name);
+            if (CultureInfo.CurrentCulture.Name == Cultures.en_US)
+                return name;
+
+            var value = _resourceItems[name].LocalizedValue.ContainsKey(CultureInfo.CurrentCulture.Name)
+                ? _resourceItems[name].LocalizedValue[CultureInfo.CurrentCulture.Name]
+                : null;
             return value;
         }
     }

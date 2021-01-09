@@ -1,11 +1,16 @@
 ﻿using Hahn.ApplicatonProcess.December2020.Web.Models.RequestModels;
 using Swashbuckle.AspNetCore.Filters;
 using System.Collections.Generic;
+using Microsoft.Extensions.Localization;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Examples
 {
-    public class ApplicantAddRequestModelExample : IMultipleExamplesProvider<ApplicantAddRequestModel>
+    public class ApplicantAddRequestModelExample : BaseExample, IMultipleExamplesProvider<ApplicantAddRequestModel>
     {
+        public ApplicantAddRequestModelExample(IStringLocalizer localizer) : base(localizer)
+        {
+        }
+
         public IEnumerable<SwaggerExample<ApplicantAddRequestModel>> GetExamples()
         {
             yield return SwaggerExample.Create("Petros", new ApplicantAddRequestModel()
@@ -29,7 +34,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Examples
                 Hired = true
             });
 
-            yield return SwaggerExample.Create("NotValidExample", new ApplicantAddRequestModel()
+            yield return SwaggerExample.Create(_localizer[SwaggerExampleNames.NotValidExample], new ApplicantAddRequestModel()
             {
                 Name = "Short",
                 FamilyName = "Surname",
