@@ -2,9 +2,9 @@
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Automapper.Profiles;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions
+namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Services
 {
-    public static class AutomapperExtensions
+    public static class AutomapperService
     {
         public static IServiceCollection AddAutoMapper(this IServiceCollection services)
         {

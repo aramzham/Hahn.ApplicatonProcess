@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hahn.ApplicatonProcess.December2020.Domain;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 {
@@ -14,9 +14,9 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
     public class BaseController : ControllerBase
     {
         protected ApplicatonProcessBl _bl;
-        protected ILogger _logger;
+        protected ILogger<BaseController> _logger;
 
-        public BaseController(ApplicatonProcessBl bl, ILogger logger)
+        public BaseController(ApplicatonProcessBl bl, ILogger<BaseController> logger)
         {
             _bl = bl;
             _logger = logger;

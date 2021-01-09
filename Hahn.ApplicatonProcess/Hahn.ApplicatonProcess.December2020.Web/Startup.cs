@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Middlewares;
 using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Resources;
+using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 using Serilog;
@@ -43,8 +43,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             });
 
             services.AddControllers()
-                .AddFluentValidation()
-                .AddDataAnnotationsLocalization();
+                .AddFluentValidation();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc(SwaggerConstants.Version, new OpenApiInfo { Title = SwaggerConstants.OpenApiInfoTitle, Version = SwaggerConstants.Version });
@@ -61,7 +60,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddFluentValidators();
 
             // logging
-            services.AddSingleton(Log.Logger);
+            //services.AddSerilog(Configuration);
 
             // filters
             services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
@@ -104,6 +103,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             app.UseAuthorization();
 
             app.UseCors(Constants.CorsPolicyName);
+
+            app.UseSerilogRequestLogging();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
 

@@ -10,7 +10,7 @@ using Hahn.ApplicatonProcess.December2020.Web.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Models.RequestModels;
 using Hahn.ApplicatonProcess.December2020.Web.Models.ResponseModels;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -20,7 +20,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
     {
         private readonly IMapper _mapper;
 
-        public ApplicantsController(ApplicatonProcessBl bl, ILogger logger, IMapper mapper) : base(bl, logger)
+        public ApplicantsController(ApplicatonProcessBl bl, ILogger<ApplicantsController> logger, IMapper mapper) : base(bl, logger)
         {
             _mapper = mapper;
         }
@@ -33,6 +33,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         {
             try
             {
+                throw new Exception("trnenq?");
                 var applicantModel = await _bl.ApplicantBl.Get(id);
                 if (applicantModel is null)
                     return NotFound();
@@ -41,7 +42,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e, Verbs.Get);
+                _logger.LogError(e, Verbs.Get);
                 throw;
             }
         }
@@ -61,7 +62,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e, Verbs.Post);
+                _logger.LogError(e, Verbs.Post);
                 throw;
             }
         }
@@ -85,7 +86,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e, Verbs.Put);
+                _logger.LogError(e, Verbs.Put);
                 throw;
             }
         }
@@ -106,7 +107,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error(e, Verbs.Delete);
+                _logger.LogError(e, Verbs.Delete);
                 throw;
             }
         }

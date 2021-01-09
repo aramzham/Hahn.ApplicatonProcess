@@ -3,9 +3,9 @@ using Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Validators;
 using Hahn.ApplicatonProcess.December2020.Web.Models.RequestModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Extensions
+namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Services
 {
-    public static class FluentValidationExtensions
+    public static class FluentValidationService
     {
         public static IServiceCollection AddFluentValidators(this IServiceCollection services)
         {

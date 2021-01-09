@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -16,11 +17,9 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Infrastructure.Resources
             _resourceItems = JsonSerializer.Deserialize<IEnumerable<ResourceItem>>(File.ReadAllText(Constants.ResourceJsonPath)).ToDictionary(k => k.Key);
         }
 
-        public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
-        {
-            return _resourceItems.Values.Where(x => x.LocalizedValue.ContainsKey(CultureInfo.CurrentCulture.Name))
-                .Select(x => new LocalizedString(x.Key, x.LocalizedValue[CultureInfo.CurrentCulture.Name], true));
-        }
+        public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => _resourceItems.Values
+            .Where(x => x.LocalizedValue.ContainsKey(CultureInfo.CurrentCulture.Name))
+            .Select(x => new LocalizedString(x.Key, x.LocalizedValue[CultureInfo.CurrentCulture.Name], true));
 
         public LocalizedString this[string name]
         {
