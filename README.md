@@ -2,7 +2,7 @@
 
 ## Few simple steps to start the app
 <ol type="1">
-  <li>Add some applicants by using <b>POST</b> action, you may use the examples or create your own :heavy_plus_sign: :couple:</li>
+  <li>Using swagger add some applicants by using <b>POST</b> action, you may use the examples or create your own :heavy_plus_sign: :couple:</li>
   <li>Try getting by id :statue_of_liberty:</li>
   <li>Edit some properties of an applicant :white_check_mark:</li>
   <li>Remove an applicant you don't like :heavy_multiplication_x: :bomb:</li>
