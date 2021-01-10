@@ -33,7 +33,6 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         {
             try
             {
-                throw new Exception("trnenq?");
                 var applicantModel = await _bl.ApplicantBl.Get(id);
                 if (applicantModel is null)
                     return NotFound();

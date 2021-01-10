@@ -59,9 +59,6 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             // fluent validators
             services.AddFluentValidators();
 
-            // logging
-            //services.AddSerilog(Configuration);
-
             // filters
             services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 
