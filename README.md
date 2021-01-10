@@ -6,8 +6,7 @@
   <li>Try getting by id :statue_of_liberty:</li>
   <li>Edit some properties of an applicant :white_check_mark:</li>
   <li>Remove an applicant you don't like :heavy_multiplication_x: :bomb:</li>
-  <li>In Startup.cs uncomment lines <i>85,86</i>, try the invalid update provided in examples in <b>PUT</b> action :pencil:</li>
-  <li>Enjoy some Spanish error messages :sunglasses:</li>
+  <li>In Startup.cs uncomment the lines about <i>current culture</i>, try the invalid update provided in examples in <b>PUT</b> action :pencil: and enjoy some Spanish error messages :sunglasses:</li>
 </ol>
 
 ### Useful links
